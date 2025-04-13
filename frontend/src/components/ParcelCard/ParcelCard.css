@@ -1,0 +1,100 @@
+/* 📌 Wrapper for all cards */
+.parcel-card-container {
+  gap: 20px; /* Space between cards */
+  flex-wrap: wrap; /* Wrap to next line on small screens */
+  padding-top: 90px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+}
+
+/* 📌 Parcel Card */
+.parcel-card {
+  background: white;
+  padding: 20px;
+
+  max-width: 300px; /* Limit card width */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Soft shadow */
+  font-family: "Poppins", sans-serif;
+  text-align: center; /* Center text */
+  border-left: 6px solid rgb(85, 83, 83); /* Left border for better design */
+}
+.details {
+  display: flex;
+  justify-content: space-between;
+}
+.parcel-card h1 {
+  color: red;
+}
+/* 📌 Bold Labels */
+.parcel-card .bold {
+  font-weight: 600;
+  margin-top: 10px;
+  color: #333;
+}
+.input-for-delivered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+.input-for-delivered input {
+  font: 14px;
+  height: 20px;
+  border-radius: 10px;
+  border: 1px black solid;
+  padding-left: 10px;
+}
+.input-for-delivered button {
+  height: 25px; /* Increase height */
+  width: 100%; /* Full width */
+  max-width: 200px; /* Set max width */
+  background: rgb(230, 67, 67); /* Red background */
+  color: white; /* White text */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer;
+  transition: all 0.3s ease; /* Smooth hover effect */
+}
+.hideCollectionName {
+  display: none
+}
+/* 🔥 Hover Effect */
+.input-for-delivered button:hover {
+  background: rgb(200, 50, 50); /* Darker red */
+  transform: scale(1.05); /* Slightly bigger */
+}
+
+/* 🎯 Click Effect */
+.input-for-delivered button:active {
+  transform: scale(0.95); /* Shrinks on click */
+}
+
+/* ✅ Responsive - Adjust for Small Screens */
+@media (max-width: 600px) {
+  .input-for-delivered button {
+    width: 100%; /* Full width on mobile */
+    max-width: none;
+  }
+}
+
+/* 📌 Responsive - Adjust for smaller screens */
+/* @media (max-width: 900px) {
+  .parcel-card-container {
+    justify-content: space-between;
+  }
+} */
+
+/* @media (max-width: 768px) {
+  .parcel-card-container {
+    flex-direction: column;
+    align-items: center;
+  }
+} */

@@ -1,0 +1,63 @@
+/* ✅ Sidebar Container */
+.sidebar {
+  display: flex;
+  padding: 15px;
+  gap: 15px;
+  width: 100%;
+  z-index: 1000;
+  position: fixed;
+  justify-content: center;
+  background: #282c34;
+  box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* ✅ Sidebar Items (Links) */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 15px;
+  border-radius: 6px;
+  background: #3a3f4b;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: monospace;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+/* ✅ Hover Effect */
+.sidebar-item:hover {
+  background: #4a4f5c;
+  transform: translateX(5px);
+}
+
+/* ✅ Active Page Effect */
+.sidebar-item.active {
+  background: #007bff;
+  color: white;
+}
+
+/* ✅ Mobile Responsive Sidebar */
+@media (max-width: 800px) {
+  .sidebar {
+    flex-direction: row;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    padding: 15px 10px;
+    justify-content: center;
+  }
+
+  .sidebar-item {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .sidebar-item:hover {
+    transform: translateY(-3px);
+  }
+}

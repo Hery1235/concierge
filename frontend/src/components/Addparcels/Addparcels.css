@@ -1,0 +1,80 @@
+/* ✅ General Styles */
+.add-parcels {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 700px;
+  margin-top: 40px;
+  margin-left: 30%;
+  padding: 40px;
+  position: absolute;
+  top: 80px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: "Poppins", sans-serif;
+}
+
+/* ✅ Title Styling */
+.add-parcels h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+  font-size: 24px;
+}
+
+/* ✅ Input Group Styling */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.input-group input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 45px;
+  border-radius: 6px;
+  padding-left: 12px;
+  border: 1px solid #ccc;
+  outline: none;
+  color: #333;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+/* ✅ Input Focus Effect */
+.input-group input:focus {
+  border-color: #007bff;
+  box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.3);
+}
+
+/* ✅ Button Styling */
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.button-container button {
+  width: 120px;
+  height: 45px;
+  border-radius: 6px;
+  border: none;
+  background: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button-container button:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
