@@ -33,7 +33,6 @@ var keyShema = new Schema({
   },
   collectedOn: {
     type: Date,
-
   },
 });
 module.exports = mongoose.model("key", keyShema);

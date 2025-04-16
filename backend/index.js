@@ -3,6 +3,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const Parcel = require("./models/parcel");
 const Key = require("./models/key");
+const Building = require("./models/building");
 
 const port = 5000;
 const app = express();
@@ -10,17 +11,29 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(
-  "mongodb+srv://mh47098:Hamdankhan1122%40@cluster0.owbqb.mongodb.net/Conciargeee"
-);
+mongoose
+  .connect(
+    "mongodb+srv://mh47098:Hamdankhan1122%40@cluster0.yuy5oeg.mongodb.net/concierge?retryWrites=true&w=majority&appName=Cluster0"
+  )
+  .then(() => console.log("Connected to MongoDB..."))
+  .catch((err) => console.error("Could not connect to MongoDB...", err));
 
 app.get("/", (req, res) => {
   res.send("App is running on the port");
 });
 
 app.post("/addbuilding", async (req, res) => {
-  const data = req.body.buildingName;
-  console.log(data);
+  const buildingName = req.body.buildingName;
+  const building = new Building({
+    name: buildingName,
+  });
+  await building.save();
+  console.log("Building saved as ", buildingName);
+
+  res.json({
+    success: true,
+    buildingName: buildingName,
+  });
 });
 
 app.post("/addparcel", async (req, res) => {
@@ -62,15 +75,16 @@ app.get("/allparcels", async (req, res) => {
 
 app.get("/totalundeliveredparcels", async (req, res) => {
   try {
-    // Find all undelivered parcels (assuming 'delivered' field exists)
+    console.log("Fetching undelivered parcels...");
     const allparcels = await Parcel.find({ delivered: false });
-    const totalundeliveredparcels = allparcels.length;
+    console.log("Fetched parcels:", allparcels);
 
-    // Send the count of undelivered parcels with a valid status code (200)
-    res.status(200).json(totalundeliveredparcels); // Correct way to send status code with JSON
+    const totalUndeliveredParcels = allparcels.length;
+    console.log("Total undelivered parcels:", totalUndeliveredParcels);
+
+    res.status(200).json({ totalUndeliveredParcels });
   } catch (error) {
-    console.log("Error in sending total count:", error);
-    // Send 500 status code for server error
+    console.error("Error in sending total count:", error);
     res
       .status(500)
       .send("Error occurred while fetching total undelivered parcels.");

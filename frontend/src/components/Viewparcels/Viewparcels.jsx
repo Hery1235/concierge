@@ -12,20 +12,15 @@ const Viewparcels = (props) => {
     totalundeliveredparcels,
     fetchTotalUndeliveredParceles,
     filterParcelsByFlatNumber,
-  
   } = useContext(Context);
 
- 
   const onChangeHandler = (e) => {
     setSearchText(e.target.value);
   };
 
-
-
   useEffect(() => {
     fetchAllParcels();
-    fetchTotalUndeliveredParceles();
-    
+    // fetchTotalUndeliveredParceles();
   }, []);
 
   return (
@@ -46,9 +41,7 @@ const Viewparcels = (props) => {
             style={{ cursor: "pointer" }}
           />
         </div>
-        {!props.status ? (
-          <p>Total UnDelivered parcels: {totalundeliveredparcels}</p>
-        ) : null}
+        {!props.status ? <p>Total UnDelivered parcels: </p> : null}
       </div>
 
       <div className="all-parcels">

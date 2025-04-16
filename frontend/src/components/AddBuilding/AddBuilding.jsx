@@ -20,7 +20,9 @@ const AddBuilding = () => {
       }
 
       const result = await responce.json();
-      console.log("Building added successfully ");
+      console.log("Building added successfully ", result);
+
+      if (result.success) alert("Building Added successfully");
     } catch (error) {
       console.log("Error while Adding Data", error);
     }

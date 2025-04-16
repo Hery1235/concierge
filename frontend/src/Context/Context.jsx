@@ -11,7 +11,7 @@ const ContextProvider = (props) => {
   const [totalundeliveredparcels, setTotalUndeliveredParcels] = useState();
 
   useEffect(() => {
-    fetchTotalUndeliveredParceles();
+    // fetchTotalUndeliveredParceles();
   }, []);
 
   const addParcel = async (parcel) => {
