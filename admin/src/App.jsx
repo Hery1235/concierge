@@ -11,10 +11,17 @@ import Sites from "./components/Sites";
 import MyEmployes from "./components/MyEmployes";
 import AddEmploye from "./components/AddEmploye";
 import Keys from "./components/Keys";
+import Navbar from "./components/Navbar";
+import { Toaster } from "react-hot-toast";
+import Login from "./components/Login";
+import ComponentError from "./components/ComponentError";
+
 const App = () => {
   return (
     // <div className="bg-[url('./src/assets/bgImage.svg')] bg-contain">
     <div>
+      <Navbar />
+      <Toaster />
       <Routes>
         <Route path="/" element={<Dashboard />}>
           <Route path="/parcels" element={<Parcels />} />
@@ -27,6 +34,8 @@ const App = () => {
           <Route path="/addemploye" element={<AddEmploye />} />
           <Route path="/keys" element={<Keys />} />
         </Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/errorlogin" element={<ComponentError />} />
       </Routes>
     </div>
   );
