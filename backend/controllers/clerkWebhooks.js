@@ -21,7 +21,6 @@ router.post("/", async (req, res) => {
 
     switch (type) {
       case "user.created": {
-        console.log("Entered user.created case");
         const siteId = data.public_metadata?.site || null;
         console.log("Site id received", siteId);
         const userData = {
