@@ -1,5 +1,6 @@
 import Site from "../models/Site.js";
 import User from "../models/User.js";
+import { clerkClient } from "@clerk/clerk-sdk-node";
 
 // Create a User
 export const createUser = async (req, res) => {
