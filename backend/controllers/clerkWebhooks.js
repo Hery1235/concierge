@@ -21,21 +21,28 @@ router.post("/", async (req, res) => {
 
     switch (type) {
       case "user.created": {
+        console.log("Entered user.created case");
+        const siteId = data.public_metadata?.site || null;
+        console.log("Site id received", siteId);
         const userData = {
           _id: data.id,
           email: data.email_addresses[0].email_address,
           name: `${data.first_name} ${data.last_name}`,
           image: data.image_url,
+          site: siteId,
         };
         await User.create(userData);
+        console.log("User created successfully with data:", userData);
         break;
       }
 
       case "user.updated": {
+        const siteId = data.public_metadata?.site || null;
         const userData = {
           email: data.email_addresses[0].email_address,
           name: `${data.first_name} ${data.last_name}`,
           image: data.image_url,
+          site: siteId,
         };
         await User.findByIdAndUpdate(data.id, userData, { new: true });
         break;
