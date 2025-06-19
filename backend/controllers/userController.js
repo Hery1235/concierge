@@ -1,11 +1,23 @@
 import Site from "../models/Site.js";
 import User from "../models/User.js";
-import { clerkClient } from "@clerk/clerk-sdk-node";
+import { clerkClient, users } from "@clerk/clerk-sdk-node";
 
 // Create a User
 export const createUser = async (req, res) => {
   try {
     const { firstname, lastname, email, password, site } = req.body;
+
+    const userId = req.user._id;
+    // Check user if admin
+
+    const isAdmin = await User.findOne({ _id: userId, role: "admin" });
+
+    if (!isAdmin) {
+      return res.json({
+        success: false,
+        message: "You Make Sure Your Are Admin",
+      });
+    }
     const isSiteAvailible = await Site.findOne({ name: site });
     if (!isSiteAvailible) {
       return res.json({ success: false, message: "Site is not Availible" });
@@ -30,7 +42,7 @@ export const createUser = async (req, res) => {
       userId: clerkUser.id,
     });
   } catch (error) {
-    res.json({ success: false, message: error.message });
+    res.json({ success: false, message: error });
   }
 };
 
@@ -40,6 +52,27 @@ export const getUser = async (req, res) => {
     const userId = req.user._id;
 
     res.json({ success: true, user: req.user });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const getAllUsers = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    // Check user if admin
+
+    const isAdmin = await User.findOne({ _id: userId, role: "admin" });
+
+    if (!isAdmin) {
+      return res.json({
+        success: false,
+        message: "You Make Sure Your Are Admin",
+      });
+    }
+    const allUsers = await User.find({}).populate("site");
+
+    res.json({ success: true, users: allUsers });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }
