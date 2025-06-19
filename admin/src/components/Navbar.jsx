@@ -12,7 +12,7 @@ import {
 import { sitesDummyData } from "../assets/assets";
 
 const Navbar = () => {
-  const { user } = useAppContext();
+  const { user, loggedInUserName } = useAppContext();
   const { signOut } = useClerk();
 
   return (
@@ -34,7 +34,7 @@ const Navbar = () => {
       {user && (
         <div className="flex gap-4 items-center">
           <UserButton />
-          <h1>Muhammad Haris</h1>
+          <h1>{loggedInUserName}</h1>
         </div>
       )}
     </div>

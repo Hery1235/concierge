@@ -10,6 +10,8 @@ const Sidebar = () => {
     { name: "Residents", path: "/residents" },
     { name: "Parcels ", path: "/parcels" },
     { name: "Keys ", path: "/keys" },
+    { name: "Buildings ", path: "/buildings" },
+    { name: "Add Building ", path: "/addbuilding" },
   ];
   return (
     <div

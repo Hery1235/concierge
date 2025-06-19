@@ -15,6 +15,8 @@ import Navbar from "./components/Navbar";
 import { Toaster } from "react-hot-toast";
 import Login from "./components/Login";
 import ComponentError from "./components/ComponentError";
+import AddBuilding from "./components/AddBuilding";
+import Buildings from "./components/Buildings";
 
 const App = () => {
   return (
@@ -33,6 +35,8 @@ const App = () => {
           <Route path="/myemployes" element={<MyEmployes />} />
           <Route path="/addemploye" element={<AddEmploye />} />
           <Route path="/keys" element={<Keys />} />
+          <Route path="/addbuilding" element={<AddBuilding />} />
+          <Route path="/buildings" element={<Buildings />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/errorlogin" element={<ComponentError />} />

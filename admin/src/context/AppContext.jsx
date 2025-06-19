@@ -12,9 +12,11 @@ export const AppProvider = ({ children }) => {
   const { user } = useUser();
   const { getToken } = useAuth();
   const [sites, setSites] = useState(null);
+  const [buildings, setBuildings] = useState(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
   const [checkingAdmin, setCheckingAdmin] = useState(true);
+  const [loggedInUserName, setLoggedInUserName] = useState("");
 
   // Checking if the user is admin or not
   const getUser = async () => {
@@ -26,6 +28,7 @@ export const AppProvider = ({ children }) => {
       });
       if (data.user.role === "admin") {
         setIsAdmin(true);
+        setLoggedInUserName(data.user.name);
       } else {
         setIsAdmin(false);
       }
@@ -56,10 +59,33 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  // Getting all the sites when pages loads
+  const getBuildings = async () => {
+    try {
+      const { data } = await axios.get(
+        "/api/building/getallbuildingsforadmin",
+        {
+          headers: {
+            Authorization: `Bearer ${await getToken()}`,
+          },
+        }
+      );
+
+      if (data.success) {
+        setBuildings(data.allBuildings);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
   useEffect(() => {
     if (user) {
       getSites();
       getUser();
+      getBuildings();
     }
   }, [user]);
 
@@ -73,6 +99,9 @@ export const AppProvider = ({ children }) => {
     navigate,
     checkingAdmin,
     getSites,
+    loggedInUserName,
+    getBuildings,
+    buildings,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 
-const AddEmploye = () => {
+const AddBuilding = () => {
   const { sites, getSites } = useAppContext();
 
   const { user, axios, getToken, toast } = useAppContext();
 
-  const [conciergeDetail, setConciergeDetail] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
+  const [buildingDetails, setBuildingDetails] = useState({
+    name: "",
+    totalNumberOfFlats: 0,
     site: "",
   });
   // Create Site Function
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
-      const { data } = await axios.post("api/user/create", conciergeDetail, {
-        headers: {
-          Authorization: `Bearer ${await getToken()}`,
-        },
-      });
+      const { data } = await axios.post(
+        "api/building/create",
+        buildingDetails,
+        {
+          headers: {
+            Authorization: `Bearer ${await getToken()}`,
+          },
+        }
+      );
       if (data.success) {
         toast.success(data.message);
       } else {
@@ -33,15 +35,16 @@ const AddEmploye = () => {
   };
 
   const onChangeHandler = (e) => {
-    setConciergeDetail({ ...conciergeDetail, [e.target.name]: e.target.value });
+    setBuildingDetails({ ...buildingDetails, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
     getSites();
   }, []);
+
   return (
     <div className="flex flex-col max-w-xl gap-4">
-      <h1 className="text-3xl">Add Concierge </h1>
+      <h1 className="text-3xl">Add Building </h1>
 
       <form
         onSubmit={submitHandler}
@@ -52,55 +55,27 @@ const AddEmploye = () => {
           <div className=""></div>
 
           <div className="w-full flex gap-2 flex-col">
-            <label htmlFor="name">First Name</label>
+            <label htmlFor="name">Building Name</label>
             <input
               className="px-4 py-2 text-sm border-gray-300 border  outline-none"
-              placeholder="Enter First Name"
+              placeholder="Enter Building Name"
               type="text"
-              name="firstname"
-              id="firstname"
-              value={conciergeDetail.firstname}
+              name="name"
+              id="name"
+              value={buildingDetails.name}
               onChange={onChangeHandler}
             />
           </div>
 
           <div className="w-full flex gap-2 flex-col mt-4">
-            <label htmlFor="address">Last Name</label>
+            <label htmlFor="address">Total Number Of Flats</label>
             <input
               className="px-4 py-2 text-sm border-gray-300 border  outline-none"
-              placeholder="Enter Last Name"
-              type="lastname"
-              name="lastname"
-              id="lastname"
-              value={conciergeDetail.lastname}
-              onChange={onChangeHandler}
-            />
-          </div>
-
-          <div className="w-full flex gap-2 flex-col mt-4">
-            <label htmlFor="name">Email</label>
-            <input
-              className="px-4 py-2 text-sm border-gray-300 border  outline-none"
-              placeholder="Enter Email"
-              type="text"
-              name="email"
-              id="email"
-              autoComplete="off"
-              value={conciergeDetail.email}
-              onChange={onChangeHandler}
-            />
-          </div>
-
-          <div className="w-full flex gap-2 flex-col mt-4">
-            <label htmlFor="address">Passoword</label>
-            <input
-              className="px-4 py-2 text-sm border-gray-300 border  outline-none "
-              placeholder="Enter Your Password"
-              type="password"
-              name="password"
-              id="password"
-              autoComplete="new-password"
-              value={conciergeDetail.password}
+              type="number"
+              min={0}
+              name="totalNumberOfFlats"
+              id="totalNumberOfFlats"
+              value={buildingDetails.totalNumberOfFlats}
               onChange={onChangeHandler}
             />
           </div>
@@ -111,7 +86,7 @@ const AddEmploye = () => {
               className="px-4 py-2 text-sm border-gray-300 border outline-none"
               name="site"
               id="site"
-              value={conciergeDetail.site}
+              value={buildingDetails.site}
               onChange={onChangeHandler}
             >
               <option value="">Select a Site</option>
@@ -137,4 +112,4 @@ const AddEmploye = () => {
   );
 };
 
-export default AddEmploye;
+export default AddBuilding;

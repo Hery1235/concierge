@@ -39,78 +39,84 @@ export const sitesDummyData = [
     createdAt: "2025-04-03T10:15:00.000Z",
   },
 ];
-
-export const flatsAndResidentsDummyData = [
+export const buildingDummyData = [
   {
-    _id: "flat_001",
-    site: sitesDummyData[0],
-    flatAddress: "24A",
-    residents: [
-      {
-        _id: "res1",
-        name: "Haris",
-        email: "haris@example.com",
-        phone: "07459151351",
-      },
-      {
-        _id: "res2",
-        name: "Habeen",
-        email: "gabeen@example.com",
-        phone: "07459151351",
-      },
-    ],
-    createdBy: "user_admin_001",
-    createdAt: "2025-04-01T09:00:00.000Z",
+    id: "building_001",
+    name: "Cooper",
+    totalNumberOfFlats: 100,
+    site: "site_001",
   },
   {
-    _id: "flat_002",
-    site: sitesDummyData[0],
-    flatAddress: "11A",
-    residents: [
-      {
-        _id: "res3",
-        name: "Hamdan",
-        email: "haris@example.com",
-        phone: "07459151351",
-      },
-    ],
-    createdBy: "user_admin_001",
-    createdAt: "2025-04-01T09:00:00.000Z",
+    id: "building_002",
+    name: "Merchant",
+    totalNumberOfFlats: 90,
+    site: "site_002",
+  },
+];
+export const residents = [
+  {
+    id: "resident_001",
+    name: "Alice Johnson",
+    email: "alice.johnson@example.com",
+    building: buildingDummyData[0],
+    phone: "07458172615",
+    flatNumber: 12,
+  },
+  {
+    id: "resident_002",
+    name: "Bob Smith",
+    email: "bob.smith@example.com",
+    building: buildingDummyData[1],
+    phone: "07458172615",
+    flatNumber: 45,
+  },
+  {
+    id: "resident_003",
+    name: "Clara Lee",
+    email: "clara.lee@example.com",
+    building: buildingDummyData[1],
+    phone: "07458172615",
+    flatNumber: 7,
+  },
+  {
+    id: "resident_004",
+    name: "David Patel",
+    email: "david.patel@example.com",
+    building: buildingDummyData[1],
+    phone: "07458172600",
+    flatNumber: 33,
   },
 ];
 
 export const parcelsDummyData = [
   {
     _id: "parcel_001",
-    name: "Muhammad Haris",
-    site: "site_001",
-    receivedBy: "user_concierge_001",
-    flat: flatsAndResidentsDummyData[0],
+
+    resident: residents[0],
     trackingNumber: "1234567890",
-    collected: true,
-    receivedAt: "2025-06-09T10:00:00.000Z",
+    concierge: "Hamdan",
     pickedAt: null,
+    pickedBy: null,
+    timestamp: "2025-06-09T10:00:00.000Z",
   },
   {
     _id: "parcel_002",
-    name: "Shanaya",
-    site: "site_001",
-    receivedBy: "user_concierge_001",
-    flat: flatsAndResidentsDummyData[1],
+
+    resident: residents[1],
+
     trackingNumber: "0987654321",
-    collected: false,
-    receivedAt: "2025-06-07T14:00:00.000Z",
+    concierge: "AALyan",
     pickedAt: "2025-06-08T09:00:00.000Z",
+    pickedBy: "Hamza",
+    timestamp: "2025-06-07T14:00:00.000Z",
   },
   {
     _id: "parcel_003",
-    name: "Hamdan waqar",
-    site: "site_002",
-    receivedBy: "user_admin_001",
-    flat: flatsAndResidentsDummyData[0],
+    resident: residents[1],
     trackingNumber: "1122334455",
-    collected: true,
-    receivedAt: "2025-06-10T12:00:00.000Z",
+    concierge: "Shaqiza",
     pickedAt: null,
+    pickedBy: null,
+    timestamp: "2025-06-10T12:00:00.000Z",
   },
 ];

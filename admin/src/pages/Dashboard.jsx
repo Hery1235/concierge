@@ -30,7 +30,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="h-screen overflow-hidden">
+    <div className="h-screen overflow-hidden ">
       <Toaster />
       <div className="flex h-full">
         <Sidebar />

@@ -6,6 +6,7 @@ import clerkWebHooks from "./controllers/clerkWebhooks.js";
 import { clerkMiddleware } from "@clerk/express";
 import siteRouter from "./routes/siteRouter.js";
 import userRouter from "./routes/userRouter.js";
+import buildingRouter from "./routes/buildingRouter.js";
 
 const port = process.env.PORT || 3000;
 
@@ -21,6 +22,9 @@ app.use("/api/clerk", clerkWebHooks);
 
 // Site Api
 app.use("/api/site", siteRouter);
+
+// Building Api
+app.use("/api/building", buildingRouter);
 
 // User api
 app.use("/api/user", userRouter);

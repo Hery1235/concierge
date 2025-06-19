@@ -1,25 +1,24 @@
-import React from "react";
-import { sitesDummyData } from "../assets/assets";
-import bookingIcon from "../assets/totalBookingIcon.svg";
+import React, { useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
-import { useEffect } from "react";
-import SiteSearchBtns from "./SiteSearchBtns";
 
-const Sites = () => {
-  const { sites, getSites } = useAppContext();
+import bookingIcon from "../assets/totalBookingIcon.svg";
+import SiteSearchBtns from "./SiteSearchBtns";
+const Buildings = () => {
+  const { buildings, getBuildings } = useAppContext();
+  console.log(buildings);
 
   useEffect(() => {
-    getSites();
+    getBuildings();
   }, []);
   return (
     <div className="flex flex-wrap flex-col gap-2">
       <SiteSearchBtns />
-      <h1 className="text-3xl">Sites..</h1>
+      <h1 className="text-3xl">All Buildings..</h1>
       <div className="flex mt-6 gap-2 border-gray-300 border w-44 p-4 rounded-sm">
         <img src={bookingIcon} alt="bookingicon" />
         <div>
-          <h1>Total Sites </h1>
-          <p>{sites.length}</p>
+          <h1 className="text-xs">Total Buildings We Cover </h1>
+          <p>{buildings.length}</p>
         </div>
       </div>
       <div
@@ -29,20 +28,26 @@ const Sites = () => {
         <table className="w-full">
           <thead className="bg-gray-50">
             <tr>
-              <th className="py-3 px-4 text-gray-800 font-medium">Site Name</th>
               <th className="py-3 px-4 text-gray-800 font-medium">
-                Site Address
+                Building Name
               </th>
+              <th className="py-3 px-4 text-gray-800 font-medium">
+                Total No of Flats{" "}
+              </th>
+              <th className="py-3 px-4 text-gray-800 font-medium">Site </th>
             </tr>
           </thead>
           <tbody>
-            {sites.map((site, index) => (
+            {buildings.map((building, index) => (
               <tr key={index}>
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
-                  {site.name}
+                  {building.name}
                 </td>
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
-                  {site.address}
+                  {building.totalFLats}
+                </td>
+                <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
+                  {building.site.name}
                 </td>
               </tr>
             ))}
@@ -53,5 +58,4 @@ const Sites = () => {
   );
 };
 
-export default Sites;
-Sites;
+export default Buildings;
