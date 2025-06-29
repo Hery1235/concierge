@@ -17,6 +17,8 @@ export const AppProvider = ({ children }) => {
   const navigate = useNavigate();
   const [checkingAdmin, setCheckingAdmin] = useState(true);
   const [loggedInUserName, setLoggedInUserName] = useState("");
+  const [allResidentsData, setAllResidentsData] = useState(null);
+  const [allParcels, setAllParcels] = useState(null);
 
   // Checking if the user is admin or not
   const getUser = async () => {
@@ -81,11 +83,51 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  // get all residents
+  const getAllResidents = async () => {
+    try {
+      const { data } = await axios.get("/api/resident/allresidents", {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      });
+      if (data.success) {
+        setAllResidentsData(data.allResidents);
+        console.log("All residents are hre", data.allResidents);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
+
+  // Get all parcels
+
+  const getAllParcels = async () => {
+    try {
+      const { data } = await axios.get("/api/parcel/allparcels", {
+        headers: {
+          Authorization: `Bearer ${await getToken()}`,
+        },
+      });
+
+      if (data.success) {
+        setAllParcels(data.parcels);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   useEffect(() => {
     if (user) {
       getSites();
       getUser();
       getBuildings();
+      getAllResidents();
+      getAllParcels();
     }
   }, [user]);
 
@@ -102,6 +144,10 @@ export const AppProvider = ({ children }) => {
     loggedInUserName,
     getBuildings,
     buildings,
+    allResidentsData,
+    getAllResidents,
+    getAllParcels,
+    allParcels,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

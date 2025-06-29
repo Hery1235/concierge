@@ -1,8 +1,17 @@
 import React from "react";
 import { parcelsDummyData } from "../assets/assets";
 import SiteSearchBtns from "./SiteSearchBtns";
+import { useAppContext } from "../context/AppContext";
+import { useEffect } from "react";
 
 const Parcels = () => {
+  const { getAllParcels, allParcels } = useAppContext();
+
+  console.log("Here are the all parcels ", allParcels);
+  useEffect(() => {
+    getAllParcels();
+  }, []);
+
   return (
     <div className="flex flex-col">
       <SiteSearchBtns />
@@ -37,8 +46,8 @@ const Parcels = () => {
           <thead className="bg-gray-50">
             <tr>
               <th className="py-3 px-4 text-gray-800 font-medium">Name</th>
-              <th className="py-3 px-4 text-gray-800 font-medium">Address</th>
-
+              <th className="py-3 px-4 text-gray-800 font-medium">Flat No.</th>
+              <th className="py-3 px-4 text-gray-800 font-medium">Site</th>
               <th className="py-3 px-4 text-gray-800 font-medium">Building</th>
               <th className="py-3 px-4 text-gray-800 font-medium">T No.</th>
               <th className="py-3 px-4 text-gray-800 font-medium">
@@ -46,12 +55,14 @@ const Parcels = () => {
               </th>
               <th className="py-3 px-4 text-gray-800 font-medium">Picked At</th>
               <th className="py-3 px-4 text-gray-800 font-medium">Picked By</th>
-              <th className="py-3 px-4 text-gray-800 font-medium">Concierge</th>
+              <th className="py-3 px-4 text-gray-800 font-medium">
+                Re by / Han By
+              </th>
             </tr>
           </thead>
           {/*------------Table Body --------------------- */}
           <tbody>
-            {parcelsDummyData.map((parcel, index) => (
+            {allParcels.map((parcel, index) => (
               <tr key={index}>
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
                   {parcel.resident.name}
@@ -59,15 +70,17 @@ const Parcels = () => {
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
                   {parcel.resident.flatNumber}
                 </td>
-
+                <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
+                  {parcel.site.name}
+                </td>
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
                   {parcel.resident.building.name}
                 </td>
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
-                  {parcel.trackingNumber}
+                  {parcel.uniqueId}
                 </td>
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
-                  {new Date(parcel.timestamp).toLocaleDateString()}
+                  {new Date(parcel.createdAt).toLocaleDateString()}
                 </td>
 
                 <td
@@ -93,12 +106,12 @@ const Parcels = () => {
                     parcel.pickedBy
                   ) : (
                     <button className="text-sm px-2 py-1.5 rounded-sm bg-amber-200 text-yellow-600 cursor-pointer hover:bg-green-500 hover:text-white">
-                      Picking Up
+                      Waiting for pickup
                     </button>
                   )}
                 </td>
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
-                  {parcel.concierge}
+                  {parcel.recivedBy} / {parcel.handedOverBy}
                 </td>
               </tr>
             ))}

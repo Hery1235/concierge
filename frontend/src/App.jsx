@@ -1,35 +1,40 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useContext, useEffect } from "react";
+import { Route, Router, Routes } from "react-router-dom";
+import Dashboard from "./pages/Dashboard";
+import Parcels from "./components/Parcels";
+import AddParcel from "./components/AddParcel";
+import Residents from "./components/Residents";
+import AddResident from "./components/AddResident";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Navbar from "./components/Navbar";
+import { Toaster } from "react-hot-toast";
+import Login from "./components/Login";
+import ComponentError from "./components/ComponentError";
+import CollectionDetails from "./components/collectionDetails";
+import { useAppContext } from "./context/AppContext";
 
+const App = () => {
+  const { showCollectionDetailPage } = useAppContext();
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="">
+      <Navbar />
+      {showCollectionDetailPage && <CollectionDetails />}
+      <Toaster />
+      <Routes>
+        <Route path="/" element={<Dashboard />}>
+          <Route path="/parcels" element={<Parcels />} />
+          <Route path="/addparcel" element={<AddParcel />} />
+          <Route path="/residents" element={<Residents />} />
+          <Route path="/addresident" element={<AddResident />} />
 
-export default App
+          {/* <Route path="/addkeys" element={<Addkeys />} />
+          <Route path="/keys" element={<Keys />} /> */}
+        </Route>
+        <Route path="/login" element={<Login />} />
+        <Route path="/errorlogin" element={<ComponentError />} />
+      </Routes>
+    </div>
+  );
+};
+
+export default App;

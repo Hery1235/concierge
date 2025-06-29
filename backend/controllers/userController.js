@@ -67,7 +67,7 @@ export const getAllUsers = async (req, res) => {
     if (!isAdmin) {
       return res.json({
         success: false,
-        message: "You Make Sure Your Are Admin",
+        message: "You Make Sure You are loggin in to the right portal",
       });
     }
     const allUsers = await User.find({}).populate("site");

@@ -7,6 +7,10 @@ import { clerkMiddleware } from "@clerk/express";
 import siteRouter from "./routes/siteRouter.js";
 import userRouter from "./routes/userRouter.js";
 import buildingRouter from "./routes/buildingRouter.js";
+import residentRouter from "./routes/residentRouter.js";
+import parcelRouter from "./routes/parcelRouter.js";
+
+import { sendEmail } from "./configs/email.js";
 
 const port = process.env.PORT || 3000;
 
@@ -28,6 +32,12 @@ app.use("/api/building", buildingRouter);
 
 // User api
 app.use("/api/user", userRouter);
+
+// Resident
+app.use("/api/resident", residentRouter);
+
+// Parcel
+app.use("/api/parcel", parcelRouter);
 
 // Server Running
 app.get("/", (req, res) => {

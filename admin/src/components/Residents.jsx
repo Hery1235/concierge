@@ -1,8 +1,15 @@
 import React from "react";
 import { residents } from "../assets/assets";
 import SiteSearchBtns from "./SiteSearchBtns";
+import { useAppContext } from "../context/AppContext";
+import { useEffect } from "react";
 
 const Residents = () => {
+  const { allResidentsData, getAllResidents } = useAppContext();
+
+  useEffect(() => {
+    getAllResidents();
+  }, []);
   return (
     <div className="flex flex-col">
       <SiteSearchBtns />
@@ -16,13 +23,14 @@ const Residents = () => {
             <tr>
               <th className="py-3 px-4 text-gray-800 font-medium">Flat</th>
               <th className="py-3 px-4 text-gray-800 font-medium">Building</th>
+              <th className="py-3 px-4 text-gray-800 font-medium">Site</th>
               <th className="py-3 px-4 text-gray-800 font-medium">Name</th>
               <th className="py-3 px-4 text-gray-800 font-medium">Email</th>
               <th className="py-3 px-4 text-gray-800 font-medium">Phone</th>
             </tr>
           </thead>
           <tbody>
-            {residents.map((resident, index) => (
+            {allResidentsData.map((resident, index) => (
               <tr key={resident._id}>
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
                   {resident.flatNumber}
@@ -31,13 +39,16 @@ const Residents = () => {
                   {resident.building.name}
                 </td>
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
+                  {resident.building.site.name}
+                </td>
+                <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
                   {resident.name}
                 </td>
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
                   {resident.email}
                 </td>
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
-                  {resident.phone}
+                  {resident.phoneNumber}
                 </td>
               </tr>
             ))}

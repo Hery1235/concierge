@@ -69,7 +69,7 @@ const AddEmploye = () => {
             <input
               className="px-4 py-2 text-sm border-gray-300 border  outline-none"
               placeholder="Enter Last Name"
-              type="lastname"
+              type="text"
               name="lastname"
               id="lastname"
               value={conciergeDetail.lastname}

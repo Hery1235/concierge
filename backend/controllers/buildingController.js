@@ -51,3 +51,16 @@ export const getBuildingsForAdmin = async (req, res) => {
     res.json({ success: false, message: error.message });
   }
 };
+
+// Get building for concierge
+export const getBuildingForConcierge = async (req, res) => {
+  try {
+    const user = req.user;
+    const siteId = user.site;
+    const buildings = await Building.find({ site: siteId });
+
+    res.json({ success: true, buildings });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
