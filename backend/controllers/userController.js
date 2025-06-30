@@ -25,7 +25,13 @@ export const createUser = async (req, res) => {
 
     const siteId = isSiteAvailible._id;
 
+    const dublicateUser = await User.findOne({ email });
+    if (dublicateUser) {
+      return res.json({ success: false, message: "Email Already Registered " });
+    }
+
     // 2. Create user in Clerk and attach `siteId` as metadata
+
     const clerkUser = await clerkClient.users.createUser({
       firstName: firstname,
       lastName: lastname,
@@ -42,7 +48,7 @@ export const createUser = async (req, res) => {
       userId: clerkUser.id,
     });
   } catch (error) {
-    res.json({ success: false, message: error });
+    res.json({ success: false, message: error.message });
   }
 };
 
@@ -70,7 +76,9 @@ export const getAllUsers = async (req, res) => {
         message: "You Make Sure You are loggin in to the right portal",
       });
     }
-    const allUsers = await User.find({}).populate("site");
+    const allUsers = await User.find({})
+      .populate("site")
+      .sort({ createdAt: -1 });
 
     res.json({ success: true, users: allUsers });
   } catch (error) {

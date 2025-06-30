@@ -61,12 +61,14 @@ export const getAllResidents = async (req, res) => {
         message: "Please make sure you are admin",
       });
     }
-    const allResidents = await Resident.find({}).populate({
-      path: "building",
-      populate: {
-        path: "site",
-      },
-    });
+    const allResidents = await Resident.find({})
+      .populate({
+        path: "building",
+        populate: {
+          path: "site",
+        },
+      })
+      .sort({ createdAt: -1 });
 
     res.json({ success: true, allResidents });
   } catch (error) {
@@ -87,7 +89,9 @@ export const getResidentsForSite = async (req, res) => {
     }
     const residents = await Resident.find({
       site: req.user.site,
-    }).populate("building");
+    })
+      .populate("building")
+      .sort({ createdAt: -1 });
 
     res.json({ success: true, residents });
   } catch (error) {

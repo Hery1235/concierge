@@ -19,6 +19,7 @@ export const AppProvider = ({ children }) => {
   const [loggedInUserName, setLoggedInUserName] = useState("");
   const [allResidentsData, setAllResidentsData] = useState(null);
   const [allParcels, setAllParcels] = useState(null);
+  const [loader, setLoader] = useState(false);
 
   // Checking if the user is admin or not
   const getUser = async () => {
@@ -148,6 +149,8 @@ export const AppProvider = ({ children }) => {
     getAllResidents,
     getAllParcels,
     allParcels,
+    loader,
+    setLoader,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

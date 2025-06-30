@@ -14,7 +14,6 @@ const Parcels = () => {
 
   return (
     <div className="flex flex-col">
-      <SiteSearchBtns />
       <h1 className="text-3xl ">All Parcels</h1>
       {/*------------Search Area--------------------- */}
       <div className="flex items-center mt-4 justify-between ">
@@ -70,10 +69,10 @@ const Parcels = () => {
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
                   {parcel.resident.flatNumber}
                 </td>
-                <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
+                <td className=" text-sm py-3 px-4 text-gray-700 border-t border-gray-300">
                   {parcel.site.name}
                 </td>
-                <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
+                <td className=" text-sm py-3 px-4 text-gray-700 border-t border-gray-300">
                   {parcel.resident.building.name}
                 </td>
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
@@ -106,7 +105,7 @@ const Parcels = () => {
                     parcel.pickedBy
                   ) : (
                     <button className="text-sm px-2 py-1.5 rounded-sm bg-amber-200 text-yellow-600 cursor-pointer hover:bg-green-500 hover:text-white">
-                      Waiting for pickup
+                      Waiting
                     </button>
                   )}
                 </td>

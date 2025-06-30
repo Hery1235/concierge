@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Router, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 
@@ -24,6 +24,7 @@ const App = () => {
     <div>
       <Navbar />
       <Toaster />
+
       <Routes>
         <Route path="/" element={<Dashboard />}>
           <Route path="/parcels" element={<Parcels />} />

@@ -13,7 +13,6 @@ const Sites = () => {
   }, []);
   return (
     <div className="flex flex-wrap flex-col gap-2">
-      <SiteSearchBtns />
       <h1 className="text-3xl">Sites..</h1>
       <div className="flex mt-6 gap-2 border-gray-300 border w-44 p-4 rounded-sm">
         <img src={bookingIcon} alt="bookingicon" />

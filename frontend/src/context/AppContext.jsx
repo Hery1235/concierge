@@ -21,6 +21,7 @@ export const AppProvider = ({ children }) => {
   const [showCollectionDetailPage, setShowCollectionDetailPage] =
     useState(false);
   const [parcelId, setParcelId] = useState(null);
+  const [loader, setLoader] = useState(false);
   // Checking if the user is admin or not
   const getUser = async () => {
     try {
@@ -130,6 +131,8 @@ export const AppProvider = ({ children }) => {
     showCollectionDetailPage,
     setParcelId,
     parcelId,
+    loader,
+    setLoader,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

@@ -12,7 +12,6 @@ const Residents = () => {
   }, []);
   return (
     <div className="flex flex-col">
-      <SiteSearchBtns />
       <h1 className="text-3xl">Residents</h1>
       <div
         className="max-w-6xl w-full text-left border border-gray-300 

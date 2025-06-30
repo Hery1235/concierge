@@ -31,7 +31,6 @@ const MyEmployes = () => {
 
   return (
     <div className="flex flex-col">
-      <SiteSearchBtns />
       <h1 className="text-3xl ">All Employes</h1>
 
       <div className="flex items-center mt-4 justify-between ">

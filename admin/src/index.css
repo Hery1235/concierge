@@ -11,3 +11,7 @@
 .font-playfair {
   font-family: payfair !important;
 }
+body {
+  height: 100vh;
+  overflow: hidden;
+}

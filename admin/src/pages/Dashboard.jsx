@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import { Outlet, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
@@ -32,8 +32,10 @@ const Dashboard = () => {
   return (
     <div className="h-screen overflow-hidden ">
       <Toaster />
+
       <div className="flex h-full">
         <Sidebar />
+
         <div className="flex-1 p-4 pt-10 md:px-10 h-full">
           <Outlet />
         </div>

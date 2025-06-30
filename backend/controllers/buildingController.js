@@ -21,6 +21,20 @@ export const createBuilding = async (req, res) => {
       return res.json({ success: false, message: "Site is Not Availible" });
     }
 
+    // Check if building is duplicating
+    const isBuildingDuplicate = await Building.findOne({
+      name,
+      site: isSiteAvailible._id,
+    });
+    console.log(isBuildingDuplicate);
+
+    if (isBuildingDuplicate) {
+      return res.json({
+        success: false,
+        message: "Building Already Availible",
+      });
+    }
+
     await Building.create({
       name: name,
       totalFLats: totalNumberOfFlats,
@@ -37,7 +51,9 @@ export const createBuilding = async (req, res) => {
 export const getBuildingsForAdmin = async (req, res) => {
   try {
     const owner = req.user._id;
-    const isAdmin = await User.findOne({ _id: owner, role: "admin" });
+    const isAdmin = await User.findOne({ _id: owner, role: "admin" }).sort({
+      createdAt: -1,
+    });
     if (!isAdmin) {
       return res.json({
         success: false,
@@ -45,7 +61,9 @@ export const getBuildingsForAdmin = async (req, res) => {
       });
     }
 
-    const buildings = await Building.find({}).populate("site");
+    const buildings = await Building.find({})
+      .populate("site")
+      .sort({ createdAt: -1 });
     res.json({ success: true, allBuildings: buildings });
   } catch (error) {
     res.json({ success: false, message: error.message });
@@ -57,7 +75,9 @@ export const getBuildingForConcierge = async (req, res) => {
   try {
     const user = req.user;
     const siteId = user.site;
-    const buildings = await Building.find({ site: siteId });
+    const buildings = await Building.find({ site: siteId }).sort({
+      createdAt: -1,
+    });
 
     res.json({ success: true, buildings });
   } catch (error) {
