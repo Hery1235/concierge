@@ -42,20 +42,10 @@ const AddParcel = () => {
     } else {
       try {
         setLoader(false);
-        const generateCode = () => {
-          const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-          let code = "";
-          for (let i = 0; i < 4; i++) {
-            code += chars.charAt(Math.floor(Math.random() * chars.length));
-          }
-          return code;
-        };
-
-        const pickUpCode = generateCode();
 
         const { data } = await axios.post(
           "/api/parcel/create",
-          { uniqueId, resident: residentAssignedId, pickUpCode },
+          { uniqueId, resident: residentAssignedId },
           {
             headers: {
               Authorization: `Bearer ${await getToken()}`,

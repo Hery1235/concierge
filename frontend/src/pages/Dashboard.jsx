@@ -4,6 +4,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { useClerk } from "@clerk/clerk-react";
 import Sidebar from "../components/Sidebar";
+import Loader from "../components/Loader";
 const Dashboard = () => {
   const { user, isAdmin, checkingAdmin } = useAppContext();
 
@@ -20,7 +21,7 @@ const Dashboard = () => {
   }, [user, isAdmin, checkingAdmin, navigate]);
 
   if (checkingAdmin) {
-    return <div>Loading...</div>; // or your spinner/loading indicator
+    <Loader />; // or your spinner/loading indicator
   }
 
   if (!user || !isAdmin) {

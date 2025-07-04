@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Route, Router, Routes } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Route, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 
 import Parcels from "./components/Parcels";
@@ -17,10 +17,25 @@ import Login from "./components/Login";
 import ComponentError from "./components/ComponentError";
 import AddBuilding from "./components/AddBuilding";
 import Buildings from "./components/Buildings";
+import ScreenSizeWarning from "./components/ScreenSizeWarning"; // ✅ import the warning component
 
 const App = () => {
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1227);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth >= 1227);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // ✅ Show warning on small screens
+  if (!isLargeScreen) {
+    return <ScreenSizeWarning />;
+  }
+
   return (
-    // <div className="bg-[url('./src/assets/bgImage.svg')] bg-contain">
     <div>
       <Navbar />
       <Toaster />

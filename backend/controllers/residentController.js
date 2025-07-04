@@ -1,4 +1,5 @@
 import Building from "../models/Building.js";
+import Parcel from "../models/Parcel.js";
 import Resident from "../models/Resident.js";
 import User from "../models/User.js";
 
@@ -96,5 +97,54 @@ export const getResidentsForSite = async (req, res) => {
     res.json({ success: true, residents });
   } catch (error) {
     res.json({ success: false, message: error.message });
+  }
+};
+
+// Fuction to delete resident
+export const deleteResident = async (req, res) => {
+  try {
+    const isConcierge = req.user.role;
+    const { residentId } = req.body;
+
+    if (isConcierge !== "concierge") {
+      return res.json({
+        success: false,
+        message: "Please make sure you are Concierge",
+      });
+    }
+    const isParcel = await Parcel.find({ resident: residentId });
+    if (isParcel.length > 0) {
+      return res.json({
+        success: false,
+        message: "Please Handover Parcel First",
+      });
+    }
+
+    await Resident.findByIdAndDelete(residentId);
+    return res.json({
+      success: true,
+      message: "Resident details Updated",
+    });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
+// Fuction to update resident
+export const updateResident = async (req, res) => {
+  try {
+    const { residentId, name, email, phoneNumber } = req.body;
+    const resident = await Resident.findByIdAndUpdate(residentId, {
+      name,
+      email,
+      phoneNumber,
+    });
+    if (!resident) {
+      return res.json({ success: false, message: "Resident Not Found " });
+    }
+
+    res.json({ success: true, message: "Resident Update Successfully " });
+  } catch (error) {
+    return res.json({ success: false, message: error.message });
   }
 };

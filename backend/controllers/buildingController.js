@@ -1,4 +1,5 @@
 import Building from "../models/Building.js";
+import Resident from "../models/Resident.js";
 import Site from "../models/Site.js";
 import User from "../models/User.js";
 
@@ -80,6 +81,36 @@ export const getBuildingForConcierge = async (req, res) => {
     });
 
     res.json({ success: true, buildings });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
+// Function to delete building
+export const delteBuilding = async (req, res) => {
+  try {
+    const isOwner = req.user.role;
+    const { buildingId } = req.body;
+
+    if (isOwner !== "admin") {
+      return res.json({
+        success: false,
+        message: "Please make sure you are admin",
+      });
+    }
+    const isResident = await Resident.find({ building: buildingId });
+    if (isResident.length > 0) {
+      return res.json({
+        success: false,
+        message: "Data is attached to this Building",
+      });
+    }
+
+    await Building.findByIdAndDelete(buildingId);
+    return res.json({
+      success: true,
+      message: "Building has beed deleted",
+    });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }

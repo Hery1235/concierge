@@ -9,7 +9,7 @@ const parcelSchema = mongoose.Schema(
     pickedBy: { type: String, default: null },
     recivedBy: { type: String, required: true },
     handedOverBy: { type: String, default: null },
-    pickUpCode: { type: String, required: true },
+    pickUpCode: { type: String, default: null },
   },
   { timestamps: true }
 );

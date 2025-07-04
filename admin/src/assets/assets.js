@@ -1,3 +1,8 @@
+import delete_icon from "./deleteIcon.svg";
+
+export const icons = {
+  delete_icon,
+};
 export const usersDummyData = [
   {
     _id: "user_admin_001",

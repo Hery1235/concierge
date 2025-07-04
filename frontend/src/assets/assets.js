@@ -123,3 +123,5 @@ export const parcelsDummyData = [
     timestamp: "2025-06-10T12:00:00.000Z",
   },
 ];
+
+// Icons

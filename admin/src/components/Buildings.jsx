@@ -3,9 +3,31 @@ import { useAppContext } from "../context/AppContext";
 
 import bookingIcon from "../assets/totalBookingIcon.svg";
 import SiteSearchBtns from "./SiteSearchBtns";
+import toast from "react-hot-toast";
 const Buildings = () => {
-  const { buildings, getBuildings } = useAppContext();
-  console.log(buildings);
+  const { buildings, getBuildings, axios, getToken } = useAppContext();
+
+  const clickHandler = async (id) => {
+    try {
+      const buildingId = id;
+
+      const { data } = await axios.post(
+        "/api/building/delete",
+        { buildingId },
+        {
+          headers: {
+            Authorization: `Bearer ${await getToken()}`,
+          },
+        }
+      );
+      if (data.success) {
+        toast.success(data.message);
+        getBuildings();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {}
+  };
 
   useEffect(() => {
     getBuildings();
@@ -34,6 +56,7 @@ const Buildings = () => {
                 Total No of Flats{" "}
               </th>
               <th className="py-3 px-4 text-gray-800 font-medium">Site </th>
+              <th className="py-3 px-4 text-gray-800 font-medium">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -47,6 +70,17 @@ const Buildings = () => {
                 </td>
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
                   {building.site.name}
+                </td>
+                <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
+                  <button
+                    onClick={() => {
+                      clickHandler(building._id);
+                    }}
+                    className="px-2 py-0.5 text-lg bg-red-600 rounded-lg text-white cursor-pointer
+                  hover:bg-red-700"
+                  >
+                    X
+                  </button>
                 </td>
               </tr>
             ))}

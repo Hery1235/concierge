@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-export const sendEmail = async (residentEmail, pickUpCode) => {
+export const sendEmail = async (residentEmail, pickUpCode, uniqueId) => {
   let transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -12,13 +12,14 @@ export const sendEmail = async (residentEmail, pickUpCode) => {
   let mailOptions = {
     from: "Concierge CityWharf",
     to: residentEmail,
-    subject: "Sending Email using Node.js",
+    subject: "Parcel Collection Code",
     text: `Dear Resident,
 
 We hope you're doing well. This is to inform you that a parcel has been received for you at the concierge office.
 
 To collect your parcel, please visit the concierge and present the following pick-up code:
 
+Parcel Reference : ${uniqueId}
 Pick-Up Code: ${pickUpCode}
 
 Kindly ensure you bring this code with you to verify and complete the collection.

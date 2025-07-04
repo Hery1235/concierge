@@ -15,6 +15,7 @@ import { useAppContext } from "./context/AppContext";
 
 const App = () => {
   const { showCollectionDetailPage } = useAppContext();
+  useEffect(() => {}, []);
   return (
     <div className="">
       <Navbar />

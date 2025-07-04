@@ -1,3 +1,4 @@
+import Building from "../models/Building.js";
 import Site from "../models/Site.js";
 import User from "../models/User.js";
 
@@ -33,6 +34,37 @@ export const getSites = async (req, res) => {
     const userId = req.user._id;
     const sites = await Site.find({ owner: userId });
     res.json({ success: true, sites: sites });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
+};
+
+// Delelte Site
+export const delteSite = async (req, res) => {
+  try {
+    const isOwner = req.user.role;
+    const { siteId } = req.body;
+    console.log(siteId);
+
+    if (isOwner !== "admin") {
+      return res.json({
+        success: false,
+        message: "Please make sure you are admin",
+      });
+    }
+    const isBuildingForSite = await Building.find({ site: siteId });
+    if (isBuildingForSite.length > 0) {
+      return res.json({
+        success: false,
+        message: "Data is attached to this Site",
+      });
+    }
+
+    await Site.findByIdAndDelete(siteId);
+    return res.json({
+      success: true,
+      message: "Site has beed deleted",
+    });
   } catch (error) {
     res.json({ success: false, message: error.message });
   }

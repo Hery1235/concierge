@@ -4,9 +4,33 @@ import bookingIcon from "../assets/totalBookingIcon.svg";
 import { useAppContext } from "../context/AppContext";
 import { useEffect } from "react";
 import SiteSearchBtns from "./SiteSearchBtns";
+import { icons } from "../assets/assets";
+import toast from "react-hot-toast";
 
 const Sites = () => {
-  const { sites, getSites } = useAppContext();
+  const { sites, getSites, axios, getToken } = useAppContext();
+
+  const clickHandler = async (id) => {
+    try {
+      const siteId = id;
+
+      const { data } = await axios.post(
+        "/api/site/delete",
+        { siteId },
+        {
+          headers: {
+            Authorization: `Bearer ${await getToken()}`,
+          },
+        }
+      );
+      if (data.success) {
+        toast.success(data.message);
+        getSites();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {}
+  };
 
   useEffect(() => {
     getSites();
@@ -32,6 +56,7 @@ const Sites = () => {
               <th className="py-3 px-4 text-gray-800 font-medium">
                 Site Address
               </th>
+              <th className="py-3 px-4 text-gray-800 font-medium">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -42,6 +67,17 @@ const Sites = () => {
                 </td>
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
                   {site.address}
+                </td>
+                <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
+                  <button
+                    onClick={() => {
+                      clickHandler(site._id);
+                    }}
+                    className="px-2 py-0.5 text-lg bg-red-600 rounded-lg text-white cursor-pointer
+                  hover:bg-red-700"
+                  >
+                    X
+                  </button>
                 </td>
               </tr>
             ))}

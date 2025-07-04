@@ -4,8 +4,38 @@ import { useAppContext } from "../context/AppContext";
 import { useEffect } from "react";
 
 const Parcels = () => {
-  const { getParcels, parcelsData, setShowCollectionDetailPage, setParcelId } =
-    useAppContext();
+  const {
+    getParcels,
+    parcelsData,
+    setShowCollectionDetailPage,
+    setParcelId,
+    setShowCodeInput,
+    axios,
+    getToken,
+    toast,
+  } = useAppContext();
+
+  const clickHandler = async (id) => {
+    try {
+      const parcelId = id;
+
+      const { data } = await axios.post(
+        "/api/parcel/delete",
+        { parcelId },
+        {
+          headers: {
+            Authorization: `Bearer ${await getToken()}`,
+          },
+        }
+      );
+      if (data.success) {
+        toast.success(data.message);
+        getParcels();
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {}
+  };
 
   useEffect(() => {
     getParcels();
@@ -47,7 +77,7 @@ const Parcels = () => {
               <th className="py-3 px-4 text-gray-800 font-medium">Flat No.</th>
 
               <th className="py-3 px-4 text-gray-800 font-medium">Building</th>
-              <th className="py-3 px-4 text-gray-800 font-medium">T No.</th>
+              <th className="py-3 px-4 text-gray-800 font-medium">U No.</th>
               <th className="py-3 px-4 text-gray-800 font-medium">
                 Recived At
               </th>
@@ -56,6 +86,7 @@ const Parcels = () => {
               <th className="py-3 px-4 text-gray-800 font-medium">
                 Re by / Han By
               </th>
+              <th className="py-3 px-4 text-gray-800 font-medium">Actions</th>
             </tr>
           </thead>
           {/*------------Table Body --------------------- */}
@@ -104,6 +135,7 @@ const Parcels = () => {
                     <button
                       onClick={() => {
                         setParcelId(parcel._id);
+                        setShowCodeInput(parcel.pickUpCode);
                         setShowCollectionDetailPage(true);
                       }}
                       className="text-sm px-2 py-1.5 rounded-sm bg-amber-200 text-yellow-600 cursor-pointer hover:bg-green-500 hover:text-white"
@@ -114,6 +146,17 @@ const Parcels = () => {
                 </td>
                 <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
                   {parcel.recivedBy} / {parcel.handedOverBy}
+                </td>
+                <td className="py-3 px-4 text-gray-700 border-t border-gray-300">
+                  <button
+                    onClick={() => {
+                      clickHandler(parcel._id);
+                    }}
+                    className="px-2 py-0.5 text-lg bg-red-600 rounded-lg text-white cursor-pointer
+                  hover:bg-red-700"
+                  >
+                    X
+                  </button>
                 </td>
               </tr>
             ))}
